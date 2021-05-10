@@ -1,13 +1,14 @@
 package com.jp_funda.blacktodolist.Models;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class Todo {
     private int id;
     private String title;
     private String memo;
-    private Calendar remindCalender;
+    private Date remindDate;
     private List<Task> tasks;
 
     public int getId() {
@@ -34,12 +35,12 @@ public class Todo {
         this.memo = memo;
     }
 
-    public Calendar getRemindCalender() {
-        return remindCalender;
+    public Date getRemindDate() {
+        return remindDate;
     }
 
-    public void setRemindCalender(Calendar remindCalender) {
-        this.remindCalender = remindCalender;
+    public void setRemindDate(Date remindDate) {
+        this.remindDate = remindDate;
     }
 
     public List<Task> getTasks() {
