@@ -1,9 +1,10 @@
-package com.jp_funda.blacktodolist;
+package com.jp_funda.blacktodolist.Activities;
 
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.jp_funda.blacktodolist.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
