@@ -11,7 +11,6 @@ public class TodoConstants {
     public static final String KEY_TITLE = "title";
     public static final String KEY_MEMO = "memo";
     public static final String KEY_REMIND = "remind";
-    public static final String KEY_TASK_IDS = "taskIds";
     // date format
     public static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm yyyy/MM/dd EEE");
 }
