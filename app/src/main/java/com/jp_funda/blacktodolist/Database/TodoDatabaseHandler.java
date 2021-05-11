@@ -106,4 +106,8 @@ public class TodoDatabaseHandler extends SQLiteOpenHelper {
     }
 
     // delete
+    public void delete(int todoId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TodoConstants.TABLE_NAME, TodoConstants.KEY_ID, new String[] {String.valueOf(todoId)});
+    }
 }
