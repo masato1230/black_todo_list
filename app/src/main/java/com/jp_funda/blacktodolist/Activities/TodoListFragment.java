@@ -8,18 +8,24 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.jp_funda.blacktodolist.R;
 
 public class TodoListFragment extends Fragment {
+    private View root;
+    private RecyclerView recyclerView;
 
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_todo_list, container, false);
+        // Initialize views
+        root =  inflater.inflate(R.layout.fragment_todo_list, container, false);
+        root.findViewById(R.id.todo_recycler);
+
+        return root;
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
