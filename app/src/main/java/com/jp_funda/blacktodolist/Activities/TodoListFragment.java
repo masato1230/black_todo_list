@@ -8,11 +8,18 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jp_funda.blacktodolist.Database.TodoDatabaseHandler;
+import com.jp_funda.blacktodolist.Models.Todo;
 import com.jp_funda.blacktodolist.R;
+import com.jp_funda.blacktodolist.Recycler.TodoRecyclerViewAdapter;
 
 public class TodoListFragment extends Fragment {
+    // DB
+    private TodoDatabaseHandler todoDB;
+    // Views
     private View root;
     private RecyclerView recyclerView;
 
@@ -21,9 +28,25 @@ public class TodoListFragment extends Fragment {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
+        // Initialize DB
+        todoDB = new TodoDatabaseHandler(getActivity());
+
+        // todo delete test
+        Todo todo = new Todo();
+        todo.setTitle("TEST");
+        todo.setMemo("memomemo");
+        todoDB.addTodo(todo);
+
         // Initialize views
         root =  inflater.inflate(R.layout.fragment_todo_list, container, false);
-        root.findViewById(R.id.todo_recycler);
+        recyclerView = root.findViewById(R.id.todo_recycler);
+
+        // RecyclerView Setting
+        TodoRecyclerViewAdapter adapter = new TodoRecyclerViewAdapter(getActivity());
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(llm);
+        recyclerView.setAdapter(adapter);
 
         return root;
     }

@@ -9,7 +9,7 @@
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
+        android:id="@+id/row_todo_foreground"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginLeft="7dp"
@@ -50,7 +50,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/todo_row_background"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:elevation="-1dp"

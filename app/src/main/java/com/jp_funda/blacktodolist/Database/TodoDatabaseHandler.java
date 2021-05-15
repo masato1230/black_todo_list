@@ -50,9 +50,13 @@ public class TodoDatabaseHandler extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(TodoConstants.KEY_TITLE, todo.getTitle());
-        values.put(TodoConstants.KEY_MEMO, todo.getMemo());
-        String remindDateString = TodoConstants.dateFormat.format(todo.getRemindDate());
-        values.put(TodoConstants.KEY_REMIND, remindDateString);
+        if (todo.getMemo() != null) {
+            values.put(TodoConstants.KEY_MEMO, todo.getMemo());
+        }
+        if (todo.getRemindDate() != null) {
+            String remindDateString = TodoConstants.dateFormat.format(todo.getRemindDate());
+            values.put(TodoConstants.KEY_REMIND, remindDateString);
+        }
         if (todo.getTasks() != null) {
             StringBuilder builder = new StringBuilder();
             for (Task task: todo.getTasks()) {
@@ -82,7 +86,9 @@ public class TodoDatabaseHandler extends SQLiteOpenHelper {
                 todo.setTitle(cursor.getString(cursor.getColumnIndex(TodoConstants.KEY_TITLE)));
                 todo.setMemo(cursor.getString(cursor.getColumnIndex(TodoConstants.KEY_MEMO)));
                 try {
-                    todo.setRemindDate(TodoConstants.dateFormat.parse(cursor.getString(cursor.getColumnIndex(TodoConstants.KEY_REMIND))));
+                    if (cursor.getString(cursor.getColumnIndex(TodoConstants.KEY_REMIND)) != null) {
+                        todo.setRemindDate(TodoConstants.dateFormat.parse(cursor.getString(cursor.getColumnIndex(TodoConstants.KEY_REMIND))));
+                    }
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -99,8 +105,12 @@ public class TodoDatabaseHandler extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(TodoConstants.KEY_TITLE, todo.getTitle());
-        values.put(TodoConstants.KEY_MEMO, todo.getMemo());
-        values.put(TodoConstants.KEY_REMIND, TodoConstants.dateFormat.format(todo.getRemindDate()));
+        if (todo.getMemo() != null) {
+            values.put(TodoConstants.KEY_MEMO, todo.getMemo());
+        }
+        if (todo.getRemindDate() != null) {
+            values.put(TodoConstants.KEY_REMIND, TodoConstants.dateFormat.format(todo.getRemindDate()));
+        }
 
         return db.update(TodoConstants.TABLE_NAME, values, TodoConstants.KEY_ID + "=?", new String[]{String.valueOf(todo.getId())});
     }
