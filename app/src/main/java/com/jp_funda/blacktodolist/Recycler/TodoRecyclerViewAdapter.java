@@ -55,7 +55,7 @@ public class TodoRecyclerViewAdapter extends RecyclerView.Adapter<TodoRecyclerVi
             holder.memo.setText(todo.getMemo());
         }
         if (todo.getRemindDate() != null) {
-            holder.reminder.setText(TodoConstants.dateFormat.format(todo.getRemindDate()));
+            holder.reminder.setText("reminder: " + TodoConstants.dateFormat.format(todo.getRemindDate()));
         }
 
         // click listeners

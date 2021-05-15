@@ -10,6 +10,7 @@ public class Todo {
     private String memo;
     private Date remindDate;
     private List<Task> tasks;
+    private int orderNumber;
 
     public int getId() {
         return id;
@@ -49,5 +50,13 @@ public class Todo {
 
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public int getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(int orderNumber) {
+        this.orderNumber = orderNumber;
     }
 }

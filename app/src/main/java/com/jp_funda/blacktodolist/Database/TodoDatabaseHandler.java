@@ -32,7 +32,8 @@ public class TodoDatabaseHandler extends SQLiteOpenHelper {
                 + TodoConstants.KEY_ID + " INTEGER PRIMARY KEY,"
                 + TodoConstants.KEY_TITLE + " TEXT,"
                 + TodoConstants.KEY_MEMO + " TEXT,"
-                + TodoConstants.KEY_REMIND + " TEXT"
+                + TodoConstants.KEY_REMIND + " TEXT,"
+                + TodoConstants.KEY_ORDER_NUMBER + " INTEGER"
                 + ")";
 
         db.execSQL(CREATE_TODO_TABLE);
@@ -65,6 +66,8 @@ public class TodoDatabaseHandler extends SQLiteOpenHelper {
             }
             builder.setLength(builder.length() - 1);
         }
+        // set order number
+        values.put(TodoConstants.KEY_ORDER_NUMBER, getCount()+1);
         return db.insert(TodoConstants.TABLE_NAME, null, values);
     }
 
@@ -75,7 +78,7 @@ public class TodoDatabaseHandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(
                 TodoConstants.TABLE_NAME,
-                new String[] {TodoConstants.KEY_ID, TodoConstants.KEY_TITLE, TodoConstants.KEY_MEMO, TodoConstants.KEY_REMIND},
+                new String[] {TodoConstants.KEY_ID, TodoConstants.KEY_TITLE, TodoConstants.KEY_MEMO, TodoConstants.KEY_REMIND, TodoConstants.KEY_ORDER_NUMBER},
                 null, null, null, null, null
         );
 
@@ -93,6 +96,7 @@ public class TodoDatabaseHandler extends SQLiteOpenHelper {
                     e.printStackTrace();
                 }
                 todo.setTasks(taskDB.getTasksByTodoId(todo.getId()));
+                todo.setOrderNumber(cursor.getInt(cursor.getColumnIndex(TodoConstants.KEY_ORDER_NUMBER)));
                 todoList.add(todo);
             } while (cursor.moveToNext());
         }
@@ -111,6 +115,7 @@ public class TodoDatabaseHandler extends SQLiteOpenHelper {
         if (todo.getRemindDate() != null) {
             values.put(TodoConstants.KEY_REMIND, TodoConstants.dateFormat.format(todo.getRemindDate()));
         }
+        values.put(TodoConstants.KEY_ORDER_NUMBER, todo.getOrderNumber());
 
         return db.update(TodoConstants.TABLE_NAME, values, TodoConstants.KEY_ID + "=?", new String[]{String.valueOf(todo.getId())});
     }
@@ -119,5 +124,14 @@ public class TodoDatabaseHandler extends SQLiteOpenHelper {
     public void delete(int todoId) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TodoConstants.TABLE_NAME, TodoConstants.KEY_ID, new String[] {String.valueOf(todoId)});
+    }
+
+    // get count
+    public int getCount() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String countQuery = "SELECT * FROM " + TodoConstants.TABLE_NAME;
+
+        Cursor cursor = db.rawQuery(countQuery, null, null);
+        return cursor.getCount();
     }
 }
