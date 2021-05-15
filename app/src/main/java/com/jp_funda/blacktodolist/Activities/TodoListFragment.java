@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,7 +38,7 @@ public class TodoListFragment extends Fragment {
         todoDB.addTodo(todo);
 
         // Initialize views
-        root =  inflater.inflate(R.layout.fragment_todo_list, container, false);
+        root =  inflater.inflate(R.layout.activity_main, container, false);
         recyclerView = root.findViewById(R.id.todo_recycler);
 
         // RecyclerView Setting

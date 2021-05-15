@@ -48,6 +48,10 @@ public class MyDatePickerDialog extends DialogFragment {
                         todoDB.updateTodo(mainActivityViewModel.handlingTodo);
                         // show timePickerDialog
                         new MyTimePickerDialog().show(((MainActivity) getActivity()).getSupportFragmentManager(), null);
+                        // update DB
+                        todoDB.updateTodo(mainActivityViewModel.handlingTodo);
+                        ((MainActivity) getActivity()).adapter.updateTodoList();
+                        // todo set background reminder
                         dismiss();
                     }
                 },
