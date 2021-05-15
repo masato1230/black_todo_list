@@ -22,6 +22,7 @@ public class TodoListFragment extends Fragment {
     // Views
     private View root;
     private RecyclerView recyclerView;
+    public TodoRecyclerViewAdapter adapter;
 
     @Override
     public View onCreateView(
@@ -42,7 +43,7 @@ public class TodoListFragment extends Fragment {
         recyclerView = root.findViewById(R.id.todo_recycler);
 
         // RecyclerView Setting
-        TodoRecyclerViewAdapter adapter = new TodoRecyclerViewAdapter(getActivity());
+        adapter = new TodoRecyclerViewAdapter(getActivity());
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(llm);

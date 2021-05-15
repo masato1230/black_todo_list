@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jp_funda.blacktodolist.Activities.MainActivity;
@@ -17,6 +18,7 @@ import com.jp_funda.blacktodolist.Database.TodoDatabaseHandler;
 import com.jp_funda.blacktodolist.Dialog.MyDatePickerDialog;
 import com.jp_funda.blacktodolist.Models.Todo;
 import com.jp_funda.blacktodolist.R;
+import com.jp_funda.blacktodolist.ViewModels.MainActivityViewModel;
 
 import java.util.List;
 
@@ -24,11 +26,14 @@ public class TodoRecyclerViewAdapter extends RecyclerView.Adapter<TodoRecyclerVi
     private List<Todo> todoList;
     private TodoDatabaseHandler todoDB;
     private Context context;
+    private MainActivityViewModel mainActivityViewModel;
 
     public TodoRecyclerViewAdapter(Context context) {
         this.todoDB = new TodoDatabaseHandler(context);
         this.context = context;
         updateTodoList();
+
+        mainActivityViewModel = new ViewModelProvider((MainActivity) context).get(MainActivityViewModel.class);
     }
 
     @NonNull
@@ -78,6 +83,7 @@ public class TodoRecyclerViewAdapter extends RecyclerView.Adapter<TodoRecyclerVi
                 builder.setNegativeButton(R.string.set_reminder, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        mainActivityViewModel.handlingTodo = todo;
                         new MyDatePickerDialog().show(((MainActivity) context).getSupportFragmentManager(), null);
                     }
                 });

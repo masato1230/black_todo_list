@@ -1,10 +1,9 @@
 package com.jp_funda.blacktodolist.Dialog;
 
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.widget.DatePicker;
+import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,12 +11,14 @@ import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.jp_funda.blacktodolist.Activities.MainActivity;
+import com.jp_funda.blacktodolist.Activities.TodoListFragment;
 import com.jp_funda.blacktodolist.Database.TodoDatabaseHandler;
+import com.jp_funda.blacktodolist.Recycler.TodoRecyclerViewAdapter;
 import com.jp_funda.blacktodolist.ViewModels.MainActivityViewModel;
 
 import java.util.Calendar;
 
-public class MyDatePickerDialog extends DialogFragment {
+public class MyTimePickerDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -33,28 +34,25 @@ public class MyDatePickerDialog extends DialogFragment {
             calendar.setTime(mainActivityViewModel.handlingTodo.getRemindDate());
         }
 
-        // create date dialog
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
+        TimePickerDialog timePickerDialog = new TimePickerDialog(
                 getActivity(),
-                new DatePickerDialog.OnDateSetListener() {
+                new TimePickerDialog.OnTimeSetListener() {
                     @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         // update ViewModel:handlingTask
-                        calendar.set(Calendar.YEAR, year);
-                        calendar.set(Calendar.MONTH, month);
-                        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        calendar.set(Calendar.MINUTE, minute);
                         mainActivityViewModel.handlingTodo.setRemindDate(calendar.getTime());
                         // update DB
                         todoDB.updateTodo(mainActivityViewModel.handlingTodo);
-                        // show timePickerDialog
-                        new MyTimePickerDialog().show(((MainActivity) getActivity()).getSupportFragmentManager(), null);
+                        ((MainActivity) getActivity()).adapter.updateTodoList();
                         dismiss();
                     }
                 },
-                calendar.get(Calendar.YEAR),
-                calendar.get(calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)
+                calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE),
+                true
         );
-        return datePickerDialog;
+        return timePickerDialog;
     }
 }
