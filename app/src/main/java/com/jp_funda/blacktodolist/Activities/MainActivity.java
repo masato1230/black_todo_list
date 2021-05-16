@@ -1,5 +1,7 @@
 package com.jp_funda.blacktodolist.Activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -10,16 +12,17 @@ import com.jp_funda.blacktodolist.R;
 import com.jp_funda.blacktodolist.Recycler.TodoRecyclerViewAdapter;
 import com.jp_funda.blacktodolist.ViewModels.MainActivityViewModel;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
     private TodoDatabaseHandler todoDB;
@@ -45,23 +48,33 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // create dialog
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, android.app.AlertDialog.THEME_DEVICE_DEFAULT_DARK);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, AlertDialog.THEME_DEVICE_DEFAULT_DARK);
                 builder.setTitle(R.string.add_todo);
+                // set up dialog view
+                View dialogView = LayoutInflater.from(MainActivity.this).inflate(R.layout.dialog_add_todo, null);
+                EditText titleEditText = dialogView.findViewById(R.id.add_dialog_title);
+                EditText memoEditText = dialogView.findViewById(R.id.add_dialog_memo);
+                builder.setView(dialogView);
 
+                builder.setNeutralButton(R.string.cancel, null);
+                builder.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // insert to DB
+                        Todo newTodo = new Todo();
+                        newTodo.setTitle(titleEditText.getText().toString());
+                        newTodo.setMemo(memoEditText.getText().toString());
+                        todoDB.addTodo(newTodo);
+                        adapter.updateTodoList();
+                        dialog.dismiss();
 
+                        Snackbar.make(view, titleEditText.getText().toString() + " Created!" , Snackbar.LENGTH_SHORT)
+                                .setAction("Action", null).show();
+                    }
+                });
                 builder.create().show();
-                // insert to todoDB
-
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
             }
         });
-
-        // todo delete test
-        Todo todo = new Todo();
-        todo.setTitle("TEST");
-        todo.setMemo("memomemo");
-        todoDB.addTodo(todo);
 
         recyclerView = findViewById(R.id.todo_recycler);
 

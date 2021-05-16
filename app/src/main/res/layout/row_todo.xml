@@ -11,7 +11,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/row_todo_foreground"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="70dp"
+        android:padding="5dp"
         android:layout_marginLeft="7dp"
         android:background="@drawable/background_white_transparent_right_round"
         android:elevation="5dp"
@@ -22,6 +23,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:text="TitleTitle"
             android:textColor="@color/white"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,6 +34,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:text="this is memo"
             android:textColor="@color/white_transparent_50"
             android:textSize="15sp"
@@ -41,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
-            android:text="reminder: 2021/03/22 08:30"
+            android:text="reminder: No reminders set"
             android:textColor="@color/teal_200"
             android:textSize="12sp"
             app:layout_constraintTop_toBottomOf="@+id/row_todo_memo" />
@@ -63,7 +68,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/todo_row_background"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="70dp"
         android:elevation="-1dp"
         android:background="@drawable/background_teal_round"
         app:layout_constraintTop_toTopOf="parent"
