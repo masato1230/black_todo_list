@@ -10,6 +10,7 @@ import com.jp_funda.blacktodolist.R;
 import com.jp_funda.blacktodolist.Recycler.TodoRecyclerViewAdapter;
 import com.jp_funda.blacktodolist.ViewModels.MainActivityViewModel;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
@@ -39,10 +40,18 @@ public class MainActivity extends AppCompatActivity {
         MainActivityViewModel mainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
 
         // float button
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton floatButton = findViewById(R.id.fab);
+        floatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // create dialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, android.app.AlertDialog.THEME_DEVICE_DEFAULT_DARK);
+                builder.setTitle(R.string.add_todo);
+
+
+                builder.create().show();
+                // insert to todoDB
+
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }

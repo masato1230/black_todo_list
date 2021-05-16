@@ -15,4 +15,6 @@
     <string name="save">Save</string>
     <string name="title">Title</string>
     <string name="set_reminder">Set the reminder</string>
+    <string name="add_todo">Add ToDo</string>
+    <string name="memo">Memo</string>
 </resources>

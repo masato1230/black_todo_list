@@ -65,17 +65,22 @@ public class TodoRecyclerViewAdapter extends RecyclerView.Adapter<TodoRecyclerVi
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context, AlertDialog.THEME_DEVICE_DEFAULT_DARK);
                 builder.setTitle(R.string.edit);
-                builder.setMessage("Edit title or set reminder");
-                EditText titleEditText = new EditText(context);
+                builder.setMessage("Change title or set reminder");
+                // dialog view
+                View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_edit_todo, null);
+                EditText titleEditText = dialogView.findViewById(R.id.edit_dialog_title);
+                EditText memoEditText = dialogView.findViewById(R.id.edit_dialog_memo);
                 titleEditText.setText(todo.getTitle());
-                titleEditText.setTextColor(context.getResources().getColor(R.color.white));
-                builder.setView(titleEditText);
+                memoEditText.setText(todo.getMemo());
+
+                builder.setView(dialogView);
                 builder.setNeutralButton(R.string.cancel, null);
                 builder.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // update todo_data
                         todo.setTitle(titleEditText.getText().toString());
+                        todo.setMemo(memoEditText.getText().toString());
                         todoDB.updateTodo(todo);
                         updateTodoList();
                     }
