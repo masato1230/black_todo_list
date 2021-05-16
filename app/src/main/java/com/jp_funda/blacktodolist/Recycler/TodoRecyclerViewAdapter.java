@@ -56,6 +56,9 @@ public class TodoRecyclerViewAdapter extends RecyclerView.Adapter<TodoRecyclerVi
         }
         if (todo.getRemindDate() != null) {
             holder.reminder.setText("reminder: " + TodoConstants.dateFormat.format(todo.getRemindDate()));
+        } else {
+            holder.reminder.setText("reminder: No reminders set");
+
         }
 
         // click listeners
@@ -72,9 +75,23 @@ public class TodoRecyclerViewAdapter extends RecyclerView.Adapter<TodoRecyclerVi
                 EditText memoEditText = dialogView.findViewById(R.id.edit_dialog_memo);
                 titleEditText.setText(todo.getTitle());
                 memoEditText.setText(todo.getMemo());
-
                 builder.setView(dialogView);
+
+                // click listeners
                 builder.setNeutralButton(R.string.cancel, null);
+                if (todo.getRemindDate() != null) {
+                    builder.setNeutralButton(R.string.reset_reminder, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // todo reset reminder
+                            // update todoDB
+                            todo.setRemindDate(null);
+                            todoDB.updateTodo(todo);
+                            dialog.dismiss();
+                            updateTodoList();
+                        }
+                    });
+                }
                 builder.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

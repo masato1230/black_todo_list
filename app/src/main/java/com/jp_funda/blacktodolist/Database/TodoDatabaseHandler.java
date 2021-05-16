@@ -114,6 +114,8 @@ public class TodoDatabaseHandler extends SQLiteOpenHelper {
         }
         if (todo.getRemindDate() != null) {
             values.put(TodoConstants.KEY_REMIND, TodoConstants.dateFormat.format(todo.getRemindDate()));
+        } else {
+            values.put(TodoConstants.KEY_REMIND, "");
         }
         values.put(TodoConstants.KEY_ORDER_NUMBER, todo.getOrderNumber());
 
