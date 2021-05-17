@@ -48,6 +48,7 @@ public class TodoRecyclerViewAdapter extends RecyclerView.Adapter<TodoRecyclerVi
     public void onBindViewHolder(@NonNull TodoRecyclerViewHolder holder, int position) {
         // get the data and store it to todoObject
         Todo todo = todoList.get(position);
+        holder.todo = todo;
 
         // set data to views
         holder.title.setText(todo.getTitle());

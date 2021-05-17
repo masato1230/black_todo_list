@@ -18,4 +18,5 @@
     <string name="add_todo">Add ToDo</string>
     <string name="memo">Memo</string>
     <string name="reset_reminder">Reset the reminder</string>
+    <string name="delete">Delete</string>
 </resources>

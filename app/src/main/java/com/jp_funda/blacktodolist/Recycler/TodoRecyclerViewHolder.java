@@ -7,11 +7,13 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jp_funda.blacktodolist.Models.Todo;
 import com.jp_funda.blacktodolist.R;
 
 import org.w3c.dom.Text;
 
 public class TodoRecyclerViewHolder extends RecyclerView.ViewHolder {
+    public Todo todo;
     public TextView title;
     public TextView memo;
     public TextView reminder;

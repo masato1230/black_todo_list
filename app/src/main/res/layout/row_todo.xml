@@ -23,9 +23,9 @@
             android:id="@+id/row_todo_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="60dp"
             android:layout_marginLeft="20dp"
             android:maxLines="2"
-            android:textIsSelectable="true"
             android:ellipsize="end"
             android:text="TitleTitle"
             android:textColor="@color/white"
@@ -36,8 +36,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
+            android:layout_marginRight="60dp"
             android:maxLines="2"
-            android:textIsSelectable="true"
             android:ellipsize="end"
             android:text="this is memo"
             android:textColor="@color/white_transparent_50"
@@ -73,7 +73,19 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:elevation="-1dp"
+        android:orientation="vertical"
         android:background="@drawable/background_teal_round"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="20dp" />
+        tools:layout_editor_absoluteX="20dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/delete"
+            android:textColor="@color/black"
+            android:layout_marginRight="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
