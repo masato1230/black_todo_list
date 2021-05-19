@@ -3,6 +3,7 @@ package com.jp_funda.blacktodolist.Recycler;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.jp_funda.blacktodolist.Models.Todo;
 import com.jp_funda.blacktodolist.R;
 import com.jp_funda.blacktodolist.ViewModels.MainActivityViewModel;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class TodoRecyclerViewAdapter extends RecyclerView.Adapter<TodoRecyclerViewHolder> {
@@ -59,8 +61,17 @@ public class TodoRecyclerViewAdapter extends RecyclerView.Adapter<TodoRecyclerVi
             holder.reminder.setText("reminder: " + TodoConstants.dateFormat.format(todo.getRemindDate()));
         } else {
             holder.reminder.setText("reminder: No reminders set");
-
         }
+        // set long click listener
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                mainActivityViewModel.handlingTodo = todo;
+                mainActivityViewModel.rowHeight = v.getHeight();
+                v.startDrag(null, new View.DragShadowBuilder(v), v, 0);
+                return true;
+            }
+        });
 
         // click listeners
         holder.itemView.setOnClickListener(this::onRowClick);
@@ -122,6 +133,7 @@ public class TodoRecyclerViewAdapter extends RecyclerView.Adapter<TodoRecyclerVi
 
     public void updateTodoList() {
         this.todoList = todoDB.getAllTodo();
+        todoList.sort(Comparator.comparing(Todo::getOrderNumber));
         notifyDataSetChanged();
     }
 

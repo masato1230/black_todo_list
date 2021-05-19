@@ -8,4 +8,5 @@ import java.util.List;
 
 public class MainActivityViewModel extends ViewModel {
     public Todo handlingTodo;
+    public int rowHeight;
 }

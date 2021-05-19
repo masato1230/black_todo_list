@@ -21,6 +21,8 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
     private TodoDatabaseHandler todoDB;
     private RecyclerView recyclerView;
     public TodoRecyclerViewAdapter adapter;
+
+    // drag
+    private float dragStartY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +147,49 @@ public class MainActivity extends AppCompatActivity {
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
+
+        // onDrag
+        recyclerView.setOnDragListener(new View.OnDragListener() {
+            @Override
+            public boolean onDrag(View v, DragEvent event) {
+                switch (event.getAction()) {
+                    default: {
+                        break;
+                    }
+                    case DragEvent.ACTION_DRAG_STARTED: {
+                        View dragView = (View) event.getLocalState();
+                        Log.d("onDragStart", String.valueOf(event.getY()));
+                        dragStartY = event.getY();
+                        break;
+                    }
+                    case DragEvent.ACTION_DRAG_ENDED: {
+                        Log.d("onDragEnd", String.valueOf(event.getY()));
+                        break;
+                    }
+                    case DragEvent.ACTION_DROP: {
+                        Log.d("onDragDrop", String.valueOf(event.getY()));
+                        float dragDropY = event.getY();
+                        float movingY = dragDropY - dragStartY;
+                        int movingRowCount = Math.round((float) movingY/mainActivityViewModel.rowHeight);
+                        int switchingToOrder = mainActivityViewModel.handlingTodo.getOrderNumber() + movingRowCount;
+
+                        switchingToOrder = switchingToOrder<1 ? 0:switchingToOrder;
+                        switchingToOrder = switchingToOrder>todoDB.getCount() ? todoDB.getCount():switchingToOrder;
+                        // 移動さきのorderNumberとhandlingTodoのorderNumberの入れ替え
+                        // update switchingTodo
+                        Todo switchingTodo = todoDB.getByOrderNumber(switchingToOrder);
+                        switchingTodo.setOrderNumber(mainActivityViewModel.handlingTodo.getOrderNumber());
+                        todoDB.updateTodo(switchingTodo);
+                        // update handlingTodo
+                        mainActivityViewModel.handlingTodo.setOrderNumber(switchingToOrder);
+                        todoDB.updateTodo(mainActivityViewModel.handlingTodo);
+                        adapter.updateTodoList();
+                        break;
+                    }
+                }
+                return true;
+            }
+        });
     }
 
     @Override
