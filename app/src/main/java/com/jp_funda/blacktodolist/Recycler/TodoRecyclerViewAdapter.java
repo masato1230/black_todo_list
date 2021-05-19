@@ -3,6 +3,7 @@ package com.jp_funda.blacktodolist.Recycler;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jp_funda.blacktodolist.Activities.DetailActivity;
 import com.jp_funda.blacktodolist.Activities.MainActivity;
 import com.jp_funda.blacktodolist.Constants.TodoConstants;
 import com.jp_funda.blacktodolist.Database.TodoDatabaseHandler;
@@ -74,7 +76,14 @@ public class TodoRecyclerViewAdapter extends RecyclerView.Adapter<TodoRecyclerVi
         });
 
         // click listeners
-        holder.itemView.setOnClickListener(this::onRowClick);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivityViewModel.handlingTodo = todo;
+                Intent intent = new Intent(context, DetailActivity.class);
+                context.startActivity(intent);
+            }
+        });
         holder.editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,9 +144,5 @@ public class TodoRecyclerViewAdapter extends RecyclerView.Adapter<TodoRecyclerVi
         this.todoList = todoDB.getAllTodo();
         todoList.sort(Comparator.comparing(Todo::getOrderNumber));
         notifyDataSetChanged();
-    }
-
-    public void onRowClick(View view) {
-        // todo
     }
 }

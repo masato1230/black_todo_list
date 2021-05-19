@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BlackToDoList">
+        <activity android:name=".Activities.DetailActivity"></activity>
         <activity
             android:name=".Activities.MainActivity"
             android:label="@string/app_name"
