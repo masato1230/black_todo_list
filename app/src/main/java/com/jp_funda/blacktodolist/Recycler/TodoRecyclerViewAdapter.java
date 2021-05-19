@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jp_funda.blacktodolist.Activities.DetailActivity;
-import com.jp_funda.blacktodolist.Activities.MainActivity;
+import com.jp_funda.blacktodolist.Activities.Detail.DetailActivity;
+import com.jp_funda.blacktodolist.Activities.Main.MainActivity;
 import com.jp_funda.blacktodolist.Constants.TodoConstants;
 import com.jp_funda.blacktodolist.Database.TodoDatabaseHandler;
 import com.jp_funda.blacktodolist.Dialog.MyDatePickerDialog;

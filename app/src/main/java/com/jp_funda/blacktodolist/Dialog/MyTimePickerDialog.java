@@ -10,10 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.jp_funda.blacktodolist.Activities.MainActivity;
-import com.jp_funda.blacktodolist.Activities.TodoListFragment;
+import com.jp_funda.blacktodolist.Activities.Main.MainActivity;
 import com.jp_funda.blacktodolist.Database.TodoDatabaseHandler;
-import com.jp_funda.blacktodolist.Recycler.TodoRecyclerViewAdapter;
 import com.jp_funda.blacktodolist.ViewModels.MainActivityViewModel;
 
 import java.util.Calendar;

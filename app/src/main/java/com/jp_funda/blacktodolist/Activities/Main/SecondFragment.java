@@ -1,4 +1,4 @@
-package com.jp_funda.blacktodolist.Activities;
+package com.jp_funda.blacktodolist.Activities.Main;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

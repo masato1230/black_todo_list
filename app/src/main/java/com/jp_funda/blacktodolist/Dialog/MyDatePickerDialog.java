@@ -2,7 +2,6 @@ package com.jp_funda.blacktodolist.Dialog;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.widget.DatePicker;
 
@@ -11,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.jp_funda.blacktodolist.Activities.MainActivity;
+import com.jp_funda.blacktodolist.Activities.Main.MainActivity;
 import com.jp_funda.blacktodolist.Database.TodoDatabaseHandler;
 import com.jp_funda.blacktodolist.ViewModels.MainActivityViewModel;
 
