@@ -3,11 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context=".Activities.Detail.MemoFragment">
 
     <EditText
         android:id="@+id/memo_edit_text"
+        android:hint="Memo"
+        android:textColor="@color/teal_200"
+        android:gravity="left|top"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

@@ -80,6 +80,7 @@ public class TodoRecyclerViewAdapter extends RecyclerView.Adapter<TodoRecyclerVi
             public void onClick(View v) {
                 mainActivityViewModel.handlingTodo = todo;
                 Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra("todoId", todo.getId());
                 context.startActivity(intent);
             }
         });

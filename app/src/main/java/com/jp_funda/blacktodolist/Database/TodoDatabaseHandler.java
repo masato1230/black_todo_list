@@ -103,6 +103,36 @@ public class TodoDatabaseHandler extends SQLiteOpenHelper {
         return todoList;
     }
 
+    // get by id
+    public Todo getById(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Todo todo = new Todo();
+
+        Cursor cursor = db.query(
+                TodoConstants.TABLE_NAME,
+                new String[] {TodoConstants.KEY_ID, TodoConstants.KEY_TITLE, TodoConstants.KEY_MEMO, TodoConstants.KEY_REMIND, TodoConstants.KEY_ORDER_NUMBER},
+                TodoConstants.KEY_ID + "=?",
+                new String[] {String.valueOf(id)},
+                null, null, null
+        );
+
+        if (cursor.moveToFirst()) {
+            todo.setId(cursor.getInt(cursor.getColumnIndex(TodoConstants.KEY_ID)));
+            todo.setTitle(cursor.getString(cursor.getColumnIndex(TodoConstants.KEY_TITLE)));
+            todo.setMemo(cursor.getString(cursor.getColumnIndex(TodoConstants.KEY_MEMO)));
+            try {
+                if (cursor.getString(cursor.getColumnIndex(TodoConstants.KEY_REMIND)) != null) {
+                    todo.setRemindDate(TodoConstants.dateFormat.parse(cursor.getString(cursor.getColumnIndex(TodoConstants.KEY_REMIND))));
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            todo.setTasks(taskDB.getTasksByTodoId(todo.getId()));
+            todo.setOrderNumber(cursor.getInt(cursor.getColumnIndex(TodoConstants.KEY_ORDER_NUMBER)));
+        }
+        return todo;
+    }
+
     // get by order
     public Todo getByOrderNumber(int orderNumber) {
         SQLiteDatabase db = this.getReadableDatabase();
